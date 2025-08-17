@@ -8,6 +8,9 @@ import ErrorPage from './Utilities/ErrorPage/ErrorPage.jsx';
 import UserLayout from './Utilities/Layout/UserLayout/UserLayout.jsx';
 import SuperAdminLogin from './Components/Pages/AdminPages/SuperAdminLogin/SuperAdminLogin.jsx';
 import BusinessAdminLogin from './Components/Pages/AdminPages/BusinessAdminLogin/BusinessAdminLogin.jsx';
+import BusinessAdminRegister from './Components/Pages/AdminPages/BusinessAdminRegister/BusinessAdminRegister.jsx';
+import SuperAdminLayout from './Utilities/Layout/AdminLayout/SuperAdminLayout/SuperAdminLayout.jsx';
+import BusinessAdminLayout from './Utilities/Layout/AdminLayout/BusinessAdminLayout/BusinessAdminLayout.jsx';
 
 
 const router = createBrowserRouter([
@@ -31,7 +34,35 @@ const router = createBrowserRouter([
       {
         path:"/business-adminpanel-login",
         element: <BusinessAdminLogin />,
+      } ,
+      {
+        path:"/business-adminpanel-register",
+        element: <BusinessAdminRegister />,
       }
+    ],
+  },
+  // Super Admin Layout ------------------------
+  {
+    path: "/super-dashboard",
+    element: <SuperAdminLayout />,
+    errorElement: <ErrorPage />,
+    children: [
+      {
+        path: "/super-dashboard",
+        element: <SuperAdminLayout />,
+      },
+    ],
+  },
+  // Business Admin Layout ------------------------
+  {
+    path: "/business-dashboard",
+    element: <BusinessAdminLayout />,
+    errorElement: <ErrorPage />,
+    children: [
+      {
+        path: "/business-dashboard",
+        element: <BusinessAdminLayout />,
+      },
     ],
   },
 ]);

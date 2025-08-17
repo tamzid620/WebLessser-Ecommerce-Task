@@ -8,7 +8,8 @@ const UserLayout = () => {
     const location = useLocation();
     const noHeaderFooter =
         location.pathname.includes('/super-adminpanel-login') ||
-        location.pathname.includes('/business-adminpanel-login') 
+        location.pathname.includes('/business-adminpanel-login') ||
+        location.pathname.includes('/business-adminpanel-register')
 
     return (
         <div>

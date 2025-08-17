@@ -6,7 +6,7 @@ import { Link } from "react-router";
 // import { baseUrl } from '../utilies/baseUrl/baseUrl';
 // import axios from 'axios';
 
-const SuperAdminLogin = () => {
+const BusinessAdminRegister = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [emailError, setEmailError] = useState("");
@@ -107,7 +107,7 @@ const SuperAdminLogin = () => {
             <h1
               className={` mb-5 text-center text-2xl font-bold uppercase text-white `}
             >
-              Super Admin Login
+              Business Admin Register
             </h1>
             {/* email field  */}
             <div className="mb-4">
@@ -171,13 +171,13 @@ const SuperAdminLogin = () => {
               </div>
               <span className="text-red-600">{passwordError}</span>
             </div>
-            {/* login button  */}
+            {/* Register button  */}
             <div className="flex items-center justify-between">
               <button
                 className={` w-full justify-center  mt-4 flex-1 sm:flex-none text-center flex items-center bg-sky-500 text-black text-xl px-4 py-2 rounded-sm border-2 border-black shadow-[3px_3px_0px_0px_#0ea5e9] hover:shadow-[1px_1px_0px_0px_#0ea5e9] hover:translate-x-[2px] hover:translate-y-[2px] transition-all font-bold uppercase  `}
                 type="submit"
               >
-                Login
+                Register
               </button>
             </div>
             {/* home button-------------  */}
@@ -186,15 +186,15 @@ const SuperAdminLogin = () => {
               <Link className=" underline" to="/">
                 Return Home
               </Link>
-              <Link className=" underline" to="/">
-                don’t have account? Go SignUp
+              <Link className=" underline" to="/business-adminpanel-login">
+                already have account? Please Login
               </Link>
             </h1>
             {/* <hr className="my-5 border border-sky-500" />
-                        <h1 className="flex justify-center items-center text-white">
-                            copyright ©{" "}
-                            <img className="w-[120px] ms-2" src={brandLogo} alt="" />
-                        </h1> */}
+                               <h1 className="flex justify-center items-center text-white">
+                                   copyright ©{" "}
+                                   <img className="w-[120px] ms-2" src={brandLogo} alt="" />
+                               </h1> */}
           </form>
         </div>
       </div>
@@ -202,4 +202,4 @@ const SuperAdminLogin = () => {
   );
 };
 
-export default SuperAdminLogin;
+export default BusinessAdminRegister;
