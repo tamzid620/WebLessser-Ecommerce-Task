@@ -186,7 +186,7 @@ const BusinessAdminRegister = () => {
               <Link className=" underline" to="/">
                 Return Home
               </Link>
-              <Link className=" underline" to="/business-adminpanel-login">
+              <Link className=" underline" to="/business-login">
                 already have account? Please Login
               </Link>
             </h1>

@@ -28,15 +28,15 @@ const router = createBrowserRouter([
         element: <UserHomeTwo />,
       },
       {
-        path: "/super-adminpanel-login",
+        path: "/super-login",
         element: <SuperAdminLogin />,
       },
       {
-        path:"/business-adminpanel-login",
+        path:"/business-login",
         element: <BusinessAdminLogin />,
       } ,
       {
-        path:"/business-adminpanel-register",
+        path:"/business-register",
         element: <BusinessAdminRegister />,
       }
     ],

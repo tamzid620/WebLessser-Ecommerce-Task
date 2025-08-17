@@ -3,8 +3,9 @@ import coverPhoto from "../../../../assets/images/coverPhoto-removebg-preview.pn
 import showPasswordIcon from "../../../../assets/icons/show-password-icon-18.jpg";
 import hidePasswordIcon from "../../../../assets/icons/show-password-icon-19.jpg";
 import { Link } from "react-router";
-// import { baseUrl } from '../utilies/baseUrl/baseUrl';
-// import axios from 'axios';
+import axios from "axios";
+import { BaseUrl } from "../../../../Utilities/config/BaseUrl";
+import Swal from "sweetalert2";
 
 const SuperAdminLogin = () => {
   const [email, setEmail] = useState("");
@@ -36,54 +37,42 @@ const SuperAdminLogin = () => {
 
   // handle submit button -------------
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // if (!email || !password) {
-    //     return;
-    // }
-    // axios.post(baseUrl("users/login"), { email, password }, {
-    //     headers: {
-    //         'Content-Type': 'application/json',
-    //     },
-    //     withCredentials: true, // if your backend uses cookies
-    // })
-    //     .then(res => {
-    //         const data = res.data;
-    //         localStorage.setItem('token', data?.token);
-    //         localStorage.setItem('role', data?.role);
+    if (!email || !password) {
+      return;
+    }
+    const res = await axios.post(
+      BaseUrl("super-admin-users/login"),
+      { email, password },
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
+        withCredentials: true,
+      }
+    );
+    const data = res.data;
+    if (data?.user) {
+     
+      localStorage.setItem("email", data.user.email);
+      localStorage.setItem("role", data.user.role);
 
-    //         toast.success((data.message || 'Login successful'), {
-    //             position: "top-center",
-    //             autoClose: 5000,
-    //             hideProgressBar: false,
-    //             closeOnClick: false,
-    //             pauseOnHover: true,
-    //             draggable: true,
-    //             progress: undefined,
-    //             theme: "light",
-    //         });
-    //         if (data?.role === "user") {
-    //             router.push('/userProfile');
-    //         } if (data?.role === "admin") {
-    //             router.push('/dp');
-    //         } else {
-    //             router.push('/menu');
-    //         }
-    //     })
-    //     .catch(error => {
-    //         const message = error.res?.data?.message || 'Login failed';
-
-    //         toast.error(message, {
-    //             position: "top-center",
-    //             autoClose: 5000,
-    //             hideProgressBar: false,
-    //             closeOnClick: false,
-    //             pauseOnHover: true,
-    //             draggable: true,
-    //             progress: undefined,
-    //             theme: "light",
-    //         });
-    //     });
+      Swal.fire({
+        title: "Login successful! Redirecting...",
+        icon: "success",
+        draggable: true,
+      });
+      setTimeout(() => {
+        window.location.href = "/super-dashboard"; 
+      }, 1500);
+    } else {
+      Swal.fire({
+        title: "something went wrong",
+        icon: "error",
+        draggable: true,
+      });
+    }
   };
 
   return (
