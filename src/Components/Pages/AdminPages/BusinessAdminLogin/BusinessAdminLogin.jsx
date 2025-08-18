@@ -3,8 +3,9 @@ import coverPhoto from "../../../../assets/images/coverPhoto-removebg-preview.pn
 import showPasswordIcon from "../../../../assets/icons/show-password-icon-18.jpg";
 import hidePasswordIcon from "../../../../assets/icons/show-password-icon-19.jpg";
 import { Link } from "react-router";
-// import { baseUrl } from '../utilies/baseUrl/baseUrl';
-// import axios from 'axios';
+import axios from "axios";
+import { BaseUrl } from "../../../../Utilities/config/BaseUrl";
+import Swal from "sweetalert2";
 
 const BusinessAdminLogin = () => {
   const [email, setEmail] = useState("");
@@ -33,12 +34,34 @@ const BusinessAdminLogin = () => {
     setShowPassword(!showPassword);
   };
 
-
   // handle submit button -------------
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-   
+    
+    const res = await axios.post(BaseUrl("business-admin-users/login"), {
+      email,
+      password,
+    });
+
+    if (res.status === 200) {
+      Swal.fire({
+        title: "Login successful! Redirecting...",
+        icon: "success",
+        draggable: true,
+      });
+      setTimeout(() => {
+        window.location.href = "/business-dashboard";
+      }, 1500);
+
+      localStorage.setItem("businessAdminUser", JSON.stringify(res.data.user));
+    } else {
+      Swal.fire({
+        title: "Login failed! Please try again.",
+        icon: "error",
+        draggable: true,
+      });
+    }
   };
 
   return (
@@ -64,7 +87,7 @@ const BusinessAdminLogin = () => {
             >
               Business Admin Login
             </h1>
-            
+
             {/* email field  */}
             <div className="mb-4">
               <label

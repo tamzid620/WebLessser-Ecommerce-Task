@@ -90,6 +90,37 @@ const BusinessAdminLayout = () => {
     setOpen(false);
   };
 
+
+  React.useEffect(() => {
+  // Get the stored user object
+  const user = localStorage.getItem("businessAdminUser");
+
+  if (user) {
+    const parsedUser = JSON.parse(user);
+
+    if (parsedUser.role !== "superAdmin" && parsedUser.role !== "businessAdmin") {
+      Swal.fire({
+        title: "You are not authorized to access this page",
+        icon: "error",
+        draggable: true,
+      });
+      setTimeout(() => {
+        window.location.href = "/business-login";
+      }, 1500);
+    }
+  } else {
+    // If no user is found in localStorage
+    Swal.fire({
+      title: "You are not authorized to access this page",
+      icon: "error",
+      draggable: true,
+    });
+    setTimeout(() => {
+      window.location.href = "/super-login";
+    }, 1500);
+  }
+}, []);
+
   return (
     <Box sx={{ display: "flex" }}>
       <CssBaseline />

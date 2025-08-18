@@ -90,8 +90,13 @@ const SuperAdminLayout = () => {
   };
 
   React.useEffect(() => {
-    const role = localStorage.getItem("role");
-    if (role !== "superAdmin") {
+
+     const user = localStorage.getItem("superAdminUser");
+
+    if (user) {
+    const parsedUser = JSON.parse(user);
+
+    if (parsedUser.role !== "superAdmin") {
       Swal.fire({
         title: "You are not authorized to access this page",
         icon: "error",
@@ -101,6 +106,17 @@ const SuperAdminLayout = () => {
         window.location.href = "/super-login";
       }, 1500);
     }
+  } else {
+    // If no user is found in localStorage
+    Swal.fire({
+      title: "You are not authorized to access this page",
+      icon: "error",
+      draggable: true,
+    });
+    setTimeout(() => {
+      window.location.href = "/super-login";
+    }, 1500);
+  }
   }, []);
 
   return (

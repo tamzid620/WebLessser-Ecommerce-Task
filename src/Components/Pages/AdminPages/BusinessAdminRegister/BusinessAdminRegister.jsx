@@ -80,7 +80,6 @@ const BusinessAdminRegister = () => {
       password,
     };
 
-    console.log("Form Data Submitted: ", formData);
     const res = await axios.post(
       BaseUrl("business-admin-users/register"),
       formData

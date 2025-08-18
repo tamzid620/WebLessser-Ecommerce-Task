@@ -55,8 +55,9 @@ const SuperAdminLogin = () => {
     const data = res.data;
     if (data?.user) {
      
-      localStorage.setItem("email", data.user.email);
-      localStorage.setItem("role", data.user.role);
+      localStorage.setItem("superAdminUser", JSON.stringify(data.user));
+      // localStorage.setItem("email", data.user.email);
+      // localStorage.setItem("role", data.user.role);
 
       Swal.fire({
         title: "Login successful! Redirecting...",
