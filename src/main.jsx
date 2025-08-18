@@ -11,6 +11,8 @@ import BusinessAdminLogin from './Components/Pages/AdminPages/BusinessAdminLogin
 import BusinessAdminRegister from './Components/Pages/AdminPages/BusinessAdminRegister/BusinessAdminRegister.jsx';
 import SuperAdminLayout from './Utilities/Layout/AdminLayout/SuperAdminLayout/SuperAdminLayout.jsx';
 import BusinessAdminLayout from './Utilities/Layout/AdminLayout/BusinessAdminLayout/BusinessAdminLayout.jsx';
+import BusinessAdminDashboardHome from './Components/Pages/AdminPages/BusinessAdminDashboardHome/BusinessAdminDashboardHome.jsx';
+import BusinessAdminTheme from './Components/Pages/AdminPages/BusinessAdminTheme/BusinessAdminTheme.jsx';
 
 
 const router = createBrowserRouter([
@@ -60,8 +62,13 @@ const router = createBrowserRouter([
     errorElement: <ErrorPage />,
     children: [
       {
-        path: "/business-dashboard",
-        element: <BusinessAdminLayout />,
+        // path: "business-dashboard",
+        index: true, 
+        element: <BusinessAdminDashboardHome />,
+      },
+      {
+        path: "business-theme",
+        element: <BusinessAdminTheme />,
       },
     ],
   },
