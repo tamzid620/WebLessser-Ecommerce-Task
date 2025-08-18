@@ -3,19 +3,35 @@ import coverPhoto from "../../../../assets/images/coverPhoto-removebg-preview.pn
 import showPasswordIcon from "../../../../assets/icons/show-password-icon-18.jpg";
 import hidePasswordIcon from "../../../../assets/icons/show-password-icon-19.jpg";
 import { Link } from "react-router";
-// import { baseUrl } from '../utilies/baseUrl/baseUrl';
-// import axios from 'axios';
+import axios from "axios";
+import { BaseUrl } from "../../../../Utilities/config/BaseUrl";
+import Swal from "sweetalert2";
 
 const BusinessAdminRegister = () => {
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [userName, setUserName] = useState("");
+  const [phoneNo, setPhoneNo] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
-  const [showPassword, setShowPassword] = useState(false);
+  const [confirmPasswordError, setConfirmPasswordError] = useState("");
 
-  const handleShowPassword = () => {
-    setShowPassword(!showPassword);
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+
+  const handleFirstNameChange = (e) => {
+    setFirstName(e.target.value);
   };
+  const handleLastNameChange = (e) => {
+    setLastName(e.target.value);
+  };
+
+  const handleUserNameChange = (e) => setUserName(e.target.value);
+  const handlePhoneNoChange = (e) => setPhoneNo(e.target.value);
 
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
@@ -34,56 +50,65 @@ const BusinessAdminRegister = () => {
     }
   };
 
+  const handleConfirmPasswordChange = (e) => {
+    setConfirmPassword(e.target.value);
+    if (e.target.value !== password) {
+      setConfirmPasswordError("Passwords do not match");
+    } else {
+      setConfirmPasswordError("");
+    }
+  };
+
+  const handleShowPassword = () => setShowPassword(!showPassword);
+  const handleShowConfirmPassword = () =>
+    setShowConfirmPassword(!showConfirmPassword);
+
   // handle submit button -------------
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // if (!email || !password) {
-    //     return;
-    // }
-    // axios.post(baseUrl("users/login"), { email, password }, {
-    //     headers: {
-    //         'Content-Type': 'application/json',
-    //     },
-    //     withCredentials: true, // if your backend uses cookies
-    // })
-    //     .then(res => {
-    //         const data = res.data;
-    //         localStorage.setItem('token', data?.token);
-    //         localStorage.setItem('role', data?.role);
+    if (password !== confirmPassword) {
+      setConfirmPasswordError("Passwords do not match");
+      return;
+    }
+    const formData = {
+      firstName,
+      lastName,
+      userName,
+      phoneNo,
+      email,
+      password,
+    };
 
-    //         toast.success((data.message || 'Login successful'), {
-    //             position: "top-center",
-    //             autoClose: 5000,
-    //             hideProgressBar: false,
-    //             closeOnClick: false,
-    //             pauseOnHover: true,
-    //             draggable: true,
-    //             progress: undefined,
-    //             theme: "light",
-    //         });
-    //         if (data?.role === "user") {
-    //             router.push('/userProfile');
-    //         } if (data?.role === "admin") {
-    //             router.push('/dp');
-    //         } else {
-    //             router.push('/menu');
-    //         }
-    //     })
-    //     .catch(error => {
-    //         const message = error.res?.data?.message || 'Login failed';
+    console.log("Form Data Submitted: ", formData);
+    const res = await axios.post(
+      BaseUrl("business-admin-users/register"),
+      formData
+    );
 
-    //         toast.error(message, {
-    //             position: "top-center",
-    //             autoClose: 5000,
-    //             hideProgressBar: false,
-    //             closeOnClick: false,
-    //             pauseOnHover: true,
-    //             draggable: true,
-    //             progress: undefined,
-    //             theme: "light",
-    //         });
-    //     });
+    if (res.status === 201) {
+      Swal.fire({
+        title: "Registration Successful!",
+        icon: "success",
+        draggable: true,
+      });
+      setFirstName("");
+      setLastName("");
+      setUserName("");
+      setPhoneNo("");
+      setEmail("");
+      setPassword("");
+      setConfirmPassword("");
+      setTimeout(() => {
+        window.location.href = "/business-login";
+      }, 1500);
+    } else {
+      Swal.fire({
+        title: res.data.message,
+        icon: "error",
+        draggable: true,
+      });
+    }
   };
 
   return (
@@ -109,6 +134,85 @@ const BusinessAdminRegister = () => {
             >
               Business Admin Register
             </h1>
+            {/* FirstName & LastName field  */}
+            <div className="flex gap-5 mb-4">
+              <div className=" w-full">
+                <label
+                  className="block text-white text-sm font-bold mb-2"
+                  htmlFor="firstName"
+                >
+                  Enter First Name
+                </label>
+                <input
+                  className="shadow appearance-none border rounded w-full py-2 px-3  leading-tight focus:outline-none focus:shadow-outline text-black bg-white"
+                  id="firstName"
+                  type="text"
+                  name="firstName"
+                  placeholder="Your First Name"
+                  value={firstName}
+                  onChange={handleFirstNameChange}
+                  required
+                />
+              </div>
+              <div className="w-full">
+                <label
+                  className="block text-white text-sm font-bold mb-2"
+                  htmlFor="lastName"
+                >
+                  Enter Last Name
+                </label>
+                <input
+                  className="shadow appearance-none border rounded w-full py-2 px-3  leading-tight focus:outline-none focus:shadow-outline text-black bg-white"
+                  id="lastName"
+                  type="text"
+                  name="lastName"
+                  placeholder="Your Last Name"
+                  value={lastName}
+                  onChange={handleLastNameChange}
+                  required
+                />
+              </div>
+            </div>
+
+            {/* Username & Phone Number */}
+            <div className="flex gap-5 mb-4">
+              <div className="w-full">
+                <label
+                  className="block text-white text-sm font-bold mb-2"
+                  htmlFor="userName"
+                >
+                  Enter Username
+                </label>
+                <input
+                  className="shadow appearance-none border rounded w-full py-2 px-3  leading-tight focus:outline-none focus:shadow-outline text-black bg-white"
+                  id="userName"
+                  type="text"
+                  name="userName"
+                  placeholder="Your Username"
+                  value={userName}
+                  onChange={handleUserNameChange}
+                  required
+                />
+              </div>
+              <div className="w-full">
+                <label
+                  className="block text-white text-sm font-bold mb-2"
+                  htmlFor="phoneNo"
+                >
+                  Enter Phone Number
+                </label>
+                <input
+                  className="shadow appearance-none border rounded w-full py-2 px-3  leading-tight focus:outline-none focus:shadow-outline text-black bg-white"
+                  id="phoneNo"
+                  type="number"
+                  name="phoneNo"
+                  placeholder="Your Phone Number"
+                  value={phoneNo}
+                  onChange={handlePhoneNoChange}
+                  required
+                />
+              </div>
+            </div>
             {/* email field  */}
             <div className="mb-4">
               <label
@@ -171,6 +275,47 @@ const BusinessAdminRegister = () => {
               </div>
               <span className="text-red-600">{passwordError}</span>
             </div>
+            {/* confirm password field */}
+            <div className="mb-6">
+              <label
+                className="block text-white text-sm font-bold mb-2"
+                htmlFor="confirmPassword"
+              >
+                Confirm Password
+              </label>
+              <div className="relative">
+                <input
+                  className="shadow appearance-none border rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline text-black bg-white"
+                  id="confirmPassword"
+                  type={showConfirmPassword ? "text" : "password"}
+                  name="confirmPassword"
+                  placeholder="Confirm Password"
+                  value={confirmPassword}
+                  onChange={handleConfirmPasswordChange}
+                  required
+                />
+                <span
+                  onClick={handleShowConfirmPassword}
+                  className="absolute inset-y-0 right-0 flex items-center pr-2 cursor-pointer"
+                >
+                  {showConfirmPassword ? (
+                    <img
+                      className="w-[30px] h-[30px]"
+                      src={showPasswordIcon}
+                      alt=""
+                    />
+                  ) : (
+                    <img
+                      className="w-[30px] h-[30px]"
+                      src={hidePasswordIcon}
+                      alt=""
+                    />
+                  )}
+                </span>
+              </div>
+              <span className="text-red-600">{confirmPasswordError}</span>
+            </div>
+
             {/* Register button  */}
             <div className="flex items-center justify-between">
               <button

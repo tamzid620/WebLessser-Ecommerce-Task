@@ -13,10 +13,6 @@ const BusinessAdminLogin = () => {
   const [passwordError, setPasswordError] = useState("");
   const [showPassword, setShowPassword] = useState(false);
 
-  const handleShowPassword = () => {
-    setShowPassword(!showPassword);
-  };
-
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
     if (!e.target.value) {
@@ -33,57 +29,16 @@ const BusinessAdminLogin = () => {
       setPasswordError("");
     }
   };
+  const handleShowPassword = () => {
+    setShowPassword(!showPassword);
+  };
+
 
   // handle submit button -------------
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // if (!email || !password) {
-    //     return;
-    // }
-    // axios.post(baseUrl("users/login"), { email, password }, {
-    //     headers: {
-    //         'Content-Type': 'application/json',
-    //     },
-    //     withCredentials: true, // if your backend uses cookies
-    // })
-    //     .then(res => {
-    //         const data = res.data;
-    //         localStorage.setItem('token', data?.token);
-    //         localStorage.setItem('role', data?.role);
-
-    //         toast.success((data.message || 'Login successful'), {
-    //             position: "top-center",
-    //             autoClose: 5000,
-    //             hideProgressBar: false,
-    //             closeOnClick: false,
-    //             pauseOnHover: true,
-    //             draggable: true,
-    //             progress: undefined,
-    //             theme: "light",
-    //         });
-    //         if (data?.role === "user") {
-    //             router.push('/userProfile');
-    //         } if (data?.role === "admin") {
-    //             router.push('/dp');
-    //         } else {
-    //             router.push('/menu');
-    //         }
-    //     })
-    //     .catch(error => {
-    //         const message = error.res?.data?.message || 'Login failed';
-
-    //         toast.error(message, {
-    //             position: "top-center",
-    //             autoClose: 5000,
-    //             hideProgressBar: false,
-    //             closeOnClick: false,
-    //             pauseOnHover: true,
-    //             draggable: true,
-    //             progress: undefined,
-    //             theme: "light",
-    //         });
-    //     });
+   
   };
 
   return (
@@ -109,6 +64,7 @@ const BusinessAdminLogin = () => {
             >
               Business Admin Login
             </h1>
+            
             {/* email field  */}
             <div className="mb-4">
               <label
@@ -190,11 +146,6 @@ const BusinessAdminLogin = () => {
                 don’t have account? Go SignUp
               </Link>
             </h1>
-            {/* <hr className="my-5 border border-sky-500" />
-                               <h1 className="flex justify-center items-center text-white">
-                                   copyright ©{" "}
-                                   <img className="w-[120px] ms-2" src={brandLogo} alt="" />
-                               </h1> */}
           </form>
         </div>
       </div>
