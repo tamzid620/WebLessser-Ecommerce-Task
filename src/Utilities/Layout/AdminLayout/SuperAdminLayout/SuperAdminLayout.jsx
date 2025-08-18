@@ -19,6 +19,7 @@ import ListItemText from "@mui/material/ListItemText";
 import InboxIcon from "@mui/icons-material/MoveToInbox";
 import MailIcon from "@mui/icons-material/Mail";
 import Swal from "sweetalert2";
+import { Link, Outlet } from "react-router";
 
 const drawerWidth = 240;
 
@@ -138,8 +139,8 @@ const SuperAdminLayout = () => {
           >
             <MenuIcon />
           </IconButton>
-          <Typography variant="h6" noWrap component="div">
-            Persistent drawer
+          <Typography sx={{fontWeight: 'semibold'}} variant="h6" noWrap component="div">
+            Super Admin Dashboard
           </Typography>
         </Toolbar>
       </AppBar>
@@ -167,8 +168,9 @@ const SuperAdminLayout = () => {
         </DrawerHeader>
         <Divider />
         <List>
-          {["Inbox", "Starred", "Send email", "Drafts"].map((text, index) => (
-            <ListItem key={text} disablePadding>
+          {["Dashboard"].map((text, index) => (
+            <Link key={text} to="/super-dashboard">
+            <ListItem  disablePadding>
               <ListItemButton>
                 <ListItemIcon>
                   {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
@@ -176,12 +178,14 @@ const SuperAdminLayout = () => {
                 <ListItemText primary={text} />
               </ListItemButton>
             </ListItem>
+            </Link>
           ))}
         </List>
         <Divider />
         <List>
-          {["All mail", "Trash", "Spam"].map((text, index) => (
-            <ListItem key={text} disablePadding>
+          {["Customer"].map((text, index) => (
+            <Link key={text} to="super-customer">
+            <ListItem disablePadding>
               <ListItemButton>
                 <ListItemIcon>
                   {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
@@ -189,13 +193,13 @@ const SuperAdminLayout = () => {
                 <ListItemText primary={text} />
               </ListItemButton>
             </ListItem>
+            </Link>
           ))}
         </List>
       </Drawer>
       <Main open={open}>
         <DrawerHeader />
-        <Typography sx={{ marginBottom: 2 }}>Super Admin Layout</Typography>
-        <Typography sx={{ marginBottom: 2 }}>Super Admin Layout</Typography>
+       <Outlet/>
       </Main>
     </Box>
   );

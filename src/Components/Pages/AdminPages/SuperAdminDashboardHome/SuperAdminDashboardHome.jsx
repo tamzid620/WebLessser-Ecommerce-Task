@@ -1,13 +1,13 @@
 import React from "react";
 
-const BusinessAdminDashboardHome = () => {
+const SuperAdminDashboardHome = () => {
   return (
     <div>
       <h1 className="font-semibold text-xl text-center uppercase">
-        Welcome to the Business Admin Dashboard
+        Welcome to the Super Admin Dashboard
       </h1>
     </div>
   );
 };
 
-export default BusinessAdminDashboardHome;
+export default SuperAdminDashboardHome;

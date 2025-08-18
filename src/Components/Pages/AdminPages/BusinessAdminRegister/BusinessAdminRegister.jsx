@@ -59,6 +59,7 @@ const BusinessAdminRegister = () => {
     }
   };
 
+
   const handleShowPassword = () => setShowPassword(!showPassword);
   const handleShowConfirmPassword = () =>
     setShowConfirmPassword(!showConfirmPassword);
@@ -314,6 +315,8 @@ const BusinessAdminRegister = () => {
               </div>
               <span className="text-red-600">{confirmPasswordError}</span>
             </div>
+
+
 
             {/* Register button  */}
             <div className="flex items-center justify-between">

@@ -13,6 +13,9 @@ import SuperAdminLayout from './Utilities/Layout/AdminLayout/SuperAdminLayout/Su
 import BusinessAdminLayout from './Utilities/Layout/AdminLayout/BusinessAdminLayout/BusinessAdminLayout.jsx';
 import BusinessAdminDashboardHome from './Components/Pages/AdminPages/BusinessAdminDashboardHome/BusinessAdminDashboardHome.jsx';
 import BusinessAdminTheme from './Components/Pages/AdminPages/BusinessAdminTheme/BusinessAdminTheme.jsx';
+import SuperAdminDashboardHome from './Components/Pages/AdminPages/SuperAdminDashboardHome/SuperAdminDashboardHome.jsx';
+import SuperAdminCustomerList from './Components/Pages/AdminPages/SuperAdminCustomerList/SuperAdminCustomerList.jsx';
+import SuperCustomerAdd from './Components/Pages/AdminPages/SuperAdminCustomerList/SuperCustomerAdd.jsx';
 
 
 const router = createBrowserRouter([
@@ -50,8 +53,16 @@ const router = createBrowserRouter([
     errorElement: <ErrorPage />,
     children: [
       {
-        path: "/super-dashboard",
-        element: <SuperAdminLayout />,
+        index: true,
+        element: <SuperAdminDashboardHome />,
+      },
+      {
+        path: "super-customer",
+        element: <SuperAdminCustomerList />,
+      },
+      {
+        path: "super-customer-add",
+        element: <SuperCustomerAdd />,
       },
     ],
   },
@@ -62,7 +73,6 @@ const router = createBrowserRouter([
     errorElement: <ErrorPage />,
     children: [
       {
-        // path: "business-dashboard",
         index: true, 
         element: <BusinessAdminDashboardHome />,
       },
