@@ -78,7 +78,7 @@ const DrawerHeader = styled("div")(({ theme }) => ({
   justifyContent: "flex-end",
 }));
 
-const SuperAdminLayout = () => {
+const SuperAdminLayout = ({subDomain}) => {
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
 
@@ -199,7 +199,10 @@ const SuperAdminLayout = () => {
       </Drawer>
       <Main open={open}>
         <DrawerHeader />
+        <>
+         <h1 className="hidden">Welcome Tenant: {subDomain ?? "default"}</h1>
        <Outlet/>
+        </>
       </Main>
     </Box>
   );

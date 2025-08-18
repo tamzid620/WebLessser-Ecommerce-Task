@@ -6,7 +6,7 @@ import { getActiveTheme } from "../../config/themeManager";
 import UserHomeOne from "../../../Components/Pages/UserPages/UserHomeOne/UserHomeOne";
 import UserHomeTwo from "../../../Components/Pages/UserPages/UserHomeTwo/UserHomeTwo";
 
-const UserLayout = () => {
+const UserLayout = ({subDomain}) => {
   const location = useLocation();
   const noHeaderFooter =
     location.pathname.includes("/super-login") ||
@@ -26,7 +26,10 @@ const UserLayout = () => {
           <UserHomeTwo />
         )
       ) : (
+        <>
+         <h1 className="hidden">Welcome Tenant: {subDomain ?? "default"}</h1>
         <Outlet />
+        </>
       )}
 
       {noHeaderFooter || <UserFooter />}

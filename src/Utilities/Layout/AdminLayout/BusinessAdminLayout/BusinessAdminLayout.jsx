@@ -78,7 +78,7 @@ const DrawerHeader = styled("div")(({ theme }) => ({
   justifyContent: "flex-end",
 }));
 
-const BusinessAdminLayout = () => {
+const BusinessAdminLayout = ({ subDomain }) => {
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
 
@@ -90,15 +90,28 @@ const BusinessAdminLayout = () => {
     setOpen(false);
   };
 
-
   React.useEffect(() => {
-  // Get the stored user object
-  const user = localStorage.getItem("businessAdminUser");
+    // Get the stored user object
+    const user = localStorage.getItem("businessAdminUser");
 
-  if (user) {
-    const parsedUser = JSON.parse(user);
+    if (user) {
+      const parsedUser = JSON.parse(user);
 
-    if (parsedUser.role !== "superAdmin" && parsedUser.role !== "businessAdmin") {
+      if (
+        parsedUser.role !== "superAdmin" &&
+        parsedUser.role !== "businessAdmin"
+      ) {
+        Swal.fire({
+          title: "You are not authorized to access this page",
+          icon: "error",
+          draggable: true,
+        });
+        setTimeout(() => {
+          window.location.href = "/business-login";
+        }, 1500);
+      }
+    } else {
+      // If no user is found in localStorage
       Swal.fire({
         title: "You are not authorized to access this page",
         icon: "error",
@@ -108,18 +121,7 @@ const BusinessAdminLayout = () => {
         window.location.href = "/business-login";
       }, 1500);
     }
-  } else {
-    // If no user is found in localStorage
-    Swal.fire({
-      title: "You are not authorized to access this page",
-      icon: "error",
-      draggable: true,
-    });
-    setTimeout(() => {
-      window.location.href = "/super-login";
-    }, 1500);
-  }
-}, []);
+  }, []);
 
   return (
     <Box sx={{ display: "flex" }}>
@@ -140,7 +142,12 @@ const BusinessAdminLayout = () => {
           >
             <MenuIcon />
           </IconButton>
-          <Typography sx={{fontWeight: 'semibold'}} variant="h6" noWrap component="div">
+          <Typography
+            sx={{ fontWeight: "semibold" }}
+            variant="h6"
+            noWrap
+            component="div"
+          >
             Business Admin Dashboard
           </Typography>
         </Toolbar>
@@ -170,35 +177,35 @@ const BusinessAdminLayout = () => {
         <Divider />
         <List>
           {["Dashboard"].map((text, index) => (
-              <Link key={text} to="/business-dashboard">
-            <ListItem  disablePadding>
+            <Link key={text} to="/business-dashboard">
+              <ListItem disablePadding>
                 <ListItemButton>
                   <ListItemIcon>
                     {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
                   </ListItemIcon>
                   <ListItemText primary={text} />
                 </ListItemButton>
-            </ListItem>
-              </Link>
-          ))}
-        </List>
-         <Divider />
-        <List>
-          {["Theme"].map((text, index) => (
-              <Link key={text} to="business-theme">
-            <ListItem  disablePadding>
-                <ListItemButton>
-                  <ListItemIcon>
-                    {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                  </ListItemIcon>
-                  <ListItemText primary={text} />
-                </ListItemButton>
-            </ListItem>
-              </Link>
+              </ListItem>
+            </Link>
           ))}
         </List>
         <Divider />
-       {/*  <List>
+        <List>
+          {["Theme"].map((text, index) => (
+            <Link key={text} to="business-theme">
+              <ListItem disablePadding>
+                <ListItemButton>
+                  <ListItemIcon>
+                    {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                  </ListItemIcon>
+                  <ListItemText primary={text} />
+                </ListItemButton>
+              </ListItem>
+            </Link>
+          ))}
+        </List>
+        <Divider />
+        {/*  <List>
           {["All mail", "Trash", "Spam"].map((text, index) => (
             <ListItem key={text} disablePadding>
               <ListItemButton>
@@ -214,7 +221,10 @@ const BusinessAdminLayout = () => {
       <Main open={open}>
         <DrawerHeader />
         {/* <Typography sx={{ marginBottom: 2 }}>Welcome To the Business Admin Dashboard</Typography> */}
-        <Outlet />
+        <>
+          <h1 className="hidden">Welcome Tenant: {subDomain ?? "default"}</h1>
+          <Outlet />
+        </>
       </Main>
     </Box>
   );

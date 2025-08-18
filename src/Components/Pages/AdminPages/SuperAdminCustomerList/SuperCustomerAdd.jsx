@@ -85,7 +85,7 @@ const handleSubDomainChange = async (e) => {
       phoneNo,
       email,
       password,
-      subDomain: `${subDomain}.com`
+      subDomain: `${subDomain}`
     };
 
     const res = await axios.post(
@@ -254,7 +254,7 @@ const handleSubDomainChange = async (e) => {
               </label>
               <div className="flex items-center">
                 <input
-                  className="shadow appearance-none border rounded-l w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline text-black bg-white"
+                  className="shadow appearance-none border rounded w-full py-2 px-3 leading-tight focus:outline-none focus:shadow-outline text-black bg-white"
                   id="subDomain"
                   type="text"
                   name="subDomain"
@@ -263,9 +263,6 @@ const handleSubDomainChange = async (e) => {
                   onChange={handleSubDomainChange}
                   required
                 />
-                <span className="bg-gray-200 px-3 py-2 rounded-r text-black">
-                  .com
-                </span>
               </div>
               {isCheckingDomain ? (
                 <span className="text-yellow-400">
@@ -278,7 +275,7 @@ const handleSubDomainChange = async (e) => {
               {/* Show preview */}
               {subDomain && !subDomainError && (
                 <p className="text-green-400 mt-1">
-                  Your Sub Domain: https://{subDomain}.com
+                  Your Sub Domain: https://{subDomain}/localhost:5173/
                 </p>
               )}
             </div>

@@ -1,7 +1,9 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import './index.css'
+import './index.css' ;
+
+// imported component ---------------------
 import UserHomeOne from './Components/Pages/UserPages/UserHomeOne/UserHomeOne.jsx';
 import UserHomeTwo from './Components/Pages/UserPages/UserHomeTwo/UserHomeTwo.jsx';
 import ErrorPage from './Utilities/ErrorPage/ErrorPage.jsx';
@@ -17,11 +19,20 @@ import SuperAdminDashboardHome from './Components/Pages/AdminPages/SuperAdminDas
 import SuperAdminCustomerList from './Components/Pages/AdminPages/SuperAdminCustomerList/SuperAdminCustomerList.jsx';
 import SuperCustomerAdd from './Components/Pages/AdminPages/SuperAdminCustomerList/SuperCustomerAdd.jsx';
 
+// 🔹 detect subdomain
+const host = window.location.hostname; 
+// e.g. "zubair123.localhost"
+let subDomain = null;
+
+if (host.includes(".localhost")) {
+  subDomain = host.split(".")[0]; // "zubair123"
+}
 
 const router = createBrowserRouter([
+  // user Layout ------------------------
   {
     path: "/",
-    element: <UserLayout />,
+    element: <UserLayout  subDomain={subDomain}/>,
     errorElement: <ErrorPage />,
     children: [
       {
@@ -46,10 +57,10 @@ const router = createBrowserRouter([
       }
     ],
   },
-  // Super Admin Layout ------------------------
+    // Super Admin Layout ------------------------
   {
     path: "/super-dashboard",
-    element: <SuperAdminLayout />,
+    element: <SuperAdminLayout subDomain={subDomain}/>,
     errorElement: <ErrorPage />,
     children: [
       {
@@ -69,7 +80,7 @@ const router = createBrowserRouter([
   // Business Admin Layout ------------------------
   {
     path: "/business-dashboard",
-    element: <BusinessAdminLayout />,
+    element: <BusinessAdminLayout subDomain={subDomain}/>,
     errorElement: <ErrorPage />,
     children: [
       {
