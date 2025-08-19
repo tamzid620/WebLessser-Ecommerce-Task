@@ -27,7 +27,7 @@ const host = window.location.hostname;
 let subDomain = null;
 
 if (host.includes(".localhost")) {
-  subDomain = host.split(".")[0]; // "zubair123"
+  subDomain = host.split(".")[0]; 
 }
 
 const router = createBrowserRouter([
