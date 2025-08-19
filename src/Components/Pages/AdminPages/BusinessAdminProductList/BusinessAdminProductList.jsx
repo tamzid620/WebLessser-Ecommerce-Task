@@ -8,7 +8,7 @@ const BusinessAdminProductList = () => {
                 Business Admin Product List
             </h1>
             <div className='mt-10'>
-                <BusinessAdminProductTable />
+                <BusinessAdminProductTable  />
             </div>
         </div>
     );

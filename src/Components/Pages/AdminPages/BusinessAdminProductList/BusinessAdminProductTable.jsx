@@ -14,18 +14,16 @@ const BusinessAdminProductTable = () => {
   const [allBusinessProducts, setAllBusinessProducts] = React.useState([]);
 
   React.useEffect(() => {
-    const fetchBusinessProducts = async () => {
-      try {
-        const res = await axios.get(
-          BaseUrl("business-admin-products/all-business-admin-products")
-        ); // should be GET, not POST
-        setAllBusinessProducts(res.data);
-      } catch (error) {
-        console.error("Error fetching business admins:", error);
-      }
+    const fetchProducts = async () => {
+      const businessAdminUser = localStorage.getItem("businessAdminUser");
+      const { id: businessId } = JSON.parse(businessAdminUser);
+      const res = await axios.get(
+        BaseUrl(`business-admin-users/${businessId}`)
+      );
+      setAllBusinessProducts(res.data.product || []);
     };
 
-    fetchBusinessProducts();
+    fetchProducts();
   }, []);
 
   return (
@@ -37,39 +35,38 @@ const BusinessAdminProductTable = () => {
           </button>
         </Link>
       </div>
+      <h1>Total Products: {allBusinessProducts.length}</h1>
       <TableContainer component={Paper}>
         <Table sx={{ minWidth: 650 }} aria-label="business admin table">
           <TableHead>
             <TableRow sx={{ backgroundColor: "#dee3e0" }}>
-              <TableCell>index</TableCell>
-              <TableCell>Product title</TableCell>
+              <TableCell>Index</TableCell>
+              <TableCell>Product Title</TableCell>
               <TableCell>Price</TableCell>
               <TableCell>Warranty</TableCell>
               <TableCell>Description</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            {allBusinessProducts?.length === 0 ? (
+            {allBusinessProducts.length === 0 ? (
               <TableRow>
-                <TableCell colSpan={8} align="center">
+                <TableCell colSpan={5} align="center">
                   No Data Found
                 </TableCell>
               </TableRow>
             ) : (
-              <>
-                {allBusinessProducts.map((product, index) => (
-                  <TableRow
-                    key={product._id}
-                    sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-                  >
-                    <TableCell>{index + 1}</TableCell>
-                    <TableCell>{product.title}</TableCell>
-                    <TableCell>{product.price}</TableCell>
-                    <TableCell>{product.warranty}</TableCell>
-                    <TableCell>{product.description}</TableCell>
-                  </TableRow>
-                ))}
-              </>
+              allBusinessProducts.map((product, index) => (
+                <TableRow
+                  key={product._id}
+                  sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                >
+                  <TableCell>{index + 1}</TableCell>
+                  <TableCell>{product.title}</TableCell>
+                  <TableCell>{product.price} $</TableCell>
+                  <TableCell>{product.warranty}</TableCell>
+                  <TableCell>{product.description}</TableCell>
+                </TableRow>
+              ))
             )}
           </TableBody>
         </Table>

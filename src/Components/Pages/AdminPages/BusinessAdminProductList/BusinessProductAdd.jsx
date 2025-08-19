@@ -1,20 +1,19 @@
-import axios from 'axios';
-import React, { useState } from 'react';
-import { BaseUrl } from '../../../../Utilities/config/BaseUrl';
-import Swal from 'sweetalert2';
+import axios from "axios";
+import React, { useState } from "react";
+import { BaseUrl } from "../../../../Utilities/config/BaseUrl";
+import Swal from "sweetalert2";
 
 const BusinessProductAdd = () => {
-
-//   const [id, setId] = useState("");
+  //   const [id, setId] = useState("");
   const [title, setTitle] = useState("");
   const [price, setPrice] = useState("");
   const [warranty, setWarranty] = useState("");
   const [description, setDescription] = useState("");
 
-//     const handleIdChange = (e) => {
-//     setId(e.target.value);
-//   };
-    const handleTitleChange = (e) => {
+  //     const handleIdChange = (e) => {
+  //     setId(e.target.value);
+  //   };
+  const handleTitleChange = (e) => {
     setTitle(e.target.value);
   };
   const handlePriceChange = (e) => {
@@ -28,48 +27,49 @@ const BusinessProductAdd = () => {
   };
 
   // handle submit button -------------
-const handleSubmit = async (e) => {
-  e.preventDefault();
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
-  const storedUser = localStorage.getItem("businessAdminUser");
-  if (!storedUser) {
-    alert("User not logged in!");
-    return;
-  }
+    const storedUser = localStorage.getItem("businessAdminUser");
+    if (!storedUser) {
+      alert("User not logged in!");
+      return;
+    }
 
-  const { id: userId } = JSON.parse(storedUser);
+    const { id: userId } = JSON.parse(storedUser);
 
-  const productData = { title, price, warranty, description };
+    const productData = { title, price, warranty, description };
 
-  try {
     const res = await axios.post(
-      BaseUrl(`business-admin-users/add-product/${userId}`), 
+      BaseUrl(`business-admin-users/add-product/${userId}`),
       productData
     );
 
     if (res.status === 200) {
-       Swal.fire({
-              title: "Product added successfully!",
-              icon: "success",
-              draggable: true,
-            });
-            setTimeout(() => {
-              window.location.href = "business-product";
-            }, 1500);
-    //   setId("");
+      Swal.fire({
+        title: "Product added successfully!",
+        icon: "success",
+        draggable: true,
+      });
+      setTimeout(() => {
+        window.location.href = "business-product";
+      }, 1500);
+      //   setId("");
       setTitle("");
       setPrice("");
       setWarranty("");
       setDescription("");
+    } else {
+      Swal.fire({
+        title: "Something went wrong!",
+        icon: "error",
+        draggable: true,
+      });
     }
-  } catch (err) {
-    console.error("Error submitting product:", err);
-    alert("❌ Something went wrong!");
-  }
-};
+  };
 
-    return (
- <div>
+  return (
+    <div>
       <h1 className="font-bold text-2xl mb-5 text-center">New Product</h1>
       <div className="flex justify-center">
         <div className="w-full mx-80">
@@ -187,7 +187,7 @@ const handleSubmit = async (e) => {
         </div>
       </div>
     </div>
-    );
+  );
 };
 
 export default BusinessProductAdd;

@@ -18,7 +18,7 @@ const SuperCustomerTable = () => {
       try {
         const res = await axios.get(
           BaseUrl("business-admin-users/all-business-admin")
-        ); // should be GET, not POST
+        );
         setAllBusinessCustomers(res.data);
       } catch (error) {
         console.error("Error fetching business admins:", error);
