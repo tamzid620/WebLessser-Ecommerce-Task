@@ -1,0 +1,34 @@
+[
+  {
+    "_id": "68a40f3fdcb00024b6151ab3",
+    "firstName": "zubair",
+    "lastName": "Ahmed",
+    "userName": "zubair123",
+    "phoneNo": "01356987412",
+    "email": "zubair123@gmail.com",
+    "password": "$2b$10$kIR.4j7qD1.qid73Xnfj1.P3A8bvxiyt.TApX8q6PO2I6JCTekZKu",
+    "role": "businessAdmin",
+    "subDomain": "http://zubair123.localhost:5173",
+    "product": [
+      {
+        "title": "Sample Product",
+        "description": "This is a sample product.",
+        "price": 29.99,
+        "warranty": 29.99
+      }
+    ],
+    "createdAt": "2025-08-19T05:44:31.180Z"
+  },
+  {
+    "_id": "68a40f3fdcb00024b6151ab3",
+    "firstName": "zubair",
+    "lastName": "Ahmed",
+    "userName": "zubair123",
+    "phoneNo": "01356987412",
+    "email": "zubair123@gmail.com",
+    "password": "$2b$10$kIR.4j7qD1.qid73Xnfj1.P3A8bvxiyt.TApX8q6PO2I6JCTekZKu",
+    "role": "businessAdmin",
+    "subDomain": "http://zubair123.localhost:5173",
+    "createdAt": "2025-08-19T05:44:31.180Z"
+  }
+]

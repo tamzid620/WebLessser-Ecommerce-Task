@@ -1,6 +1,4 @@
 import React, { useState } from "react";
-import showPasswordIcon from "../../../../assets/icons/show-password-icon-18.jpg";
-import hidePasswordIcon from "../../../../assets/icons/show-password-icon-19.jpg";
 import { Link } from "react-router";
 import axios from "axios";
 import { BaseUrl } from "../../../../Utilities/config/BaseUrl";

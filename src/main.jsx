@@ -18,6 +18,8 @@ import BusinessAdminTheme from './Components/Pages/AdminPages/BusinessAdminTheme
 import SuperAdminDashboardHome from './Components/Pages/AdminPages/SuperAdminDashboardHome/SuperAdminDashboardHome.jsx';
 import SuperAdminCustomerList from './Components/Pages/AdminPages/SuperAdminCustomerList/SuperAdminCustomerList.jsx';
 import SuperCustomerAdd from './Components/Pages/AdminPages/SuperAdminCustomerList/SuperCustomerAdd.jsx';
+import BusinessAdminProductList from './Components/Pages/AdminPages/BusinessAdminProductList/BusinessAdminProductList.jsx';
+import BusinessProductAdd from './Components/Pages/AdminPages/BusinessAdminProductList/BusinessProductAdd.jsx';
 
 // 🔹 detect subdomain
 const host = window.location.hostname; 
@@ -86,6 +88,14 @@ const router = createBrowserRouter([
       {
         index: true, 
         element: <BusinessAdminDashboardHome />,
+      },
+      {
+        path: "business-product",
+        element: <BusinessAdminProductList />,
+      },
+      {
+        path: "business-product-add",
+        element: <BusinessProductAdd />,
       },
       {
         path: "business-theme",

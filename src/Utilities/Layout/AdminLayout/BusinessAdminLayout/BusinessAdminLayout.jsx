@@ -191,6 +191,21 @@ const BusinessAdminLayout = ({ subDomain }) => {
         </List>
         <Divider />
         <List>
+          {["Product"].map((text, index) => (
+            <Link key={text} to="business-product">
+              <ListItem disablePadding>
+                <ListItemButton>
+                  <ListItemIcon>
+                    {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                  </ListItemIcon>
+                  <ListItemText primary={text} />
+                </ListItemButton>
+              </ListItem>
+            </Link>
+          ))}
+        </List>
+        <Divider />
+        <List>
           {["Theme"].map((text, index) => (
             <Link key={text} to="business-theme">
               <ListItem disablePadding>
